@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Integrador ChatGPT</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <main class="container">
+        <header>
+            <h1>Integrador ChatGPT</h1>
+            <p class="subtitle">Atividade Integradora - Desenvolvimento de Software</p>
+        </header>
+
+        <section class="card">
+            <label for="prompt">Digite seu prompt:</label>
+            <textarea id="prompt" rows="5" placeholder="Ex.: Explique o que e o principio SOLID em uma frase."></textarea>
+            <button id="send-btn" type="button">Enviar</button>
+        </section>
+
+        <section id="response-section" class="card hidden">
+            <h2>Resposta</h2>
+            <div id="response-meta" class="meta"></div>
+            <pre id="response-content"></pre>
+        </section>
+
+        <section id="error-section" class="card error hidden">
+            <strong>Erro:</strong>
+            <span id="error-message"></span>
+        </section>
+    </main>
+
+    <script src="{{ url_for('static', filename='app.js') }}"></script>
+</body>
+</html>
