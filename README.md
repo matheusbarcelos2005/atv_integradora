@@ -1,26 +1,23 @@
 # Atividade Integradora
 
-Aplicacao web desenvolvida para a Atividade Integradora. O sistema permite digitar uma pergunta em uma pagina web, enviar o prompt para o ChatGPT e exibir a resposta retornada na tela.
+Projeto feito para a Atividade Integradora da disciplina de Desenvolvimento de Software.
 
-## Objetivo
-
-Demonstrar a integracao entre uma interface web, uma aplicacao Flask e um servico externo de inteligencia artificial, mantendo separacao entre validacao, regra de negocio e comunicacao com o cliente da OpenAI.
+O sistema tem uma pagina simples onde o usuario digita uma mensagem, envia pelo navegador e recebe uma resposta na tela.
 
 ## Funcionalidades
 
-- Envio de prompts pela interface web.
-- Validacao de prompts vazios ou muito longos.
-- Exibicao da resposta gerada pelo modelo.
-- Exibicao do modelo utilizado e da quantidade de tokens.
-- Tratamento de erros de validacao e falhas de comunicacao.
-- Testes automatizados para envio, validacao e recebimento de respostas.
+- Campo para digitar a mensagem.
+- Botao para enviar.
+- Validacao para nao enviar texto vazio.
+- Area para mostrar a resposta.
+- Mensagem de erro quando acontece algum problema.
+- Testes para conferir o envio e o recebimento da resposta.
 
 ## Tecnologias usadas
 
 - Python
 - Flask
 - HTML, CSS e JavaScript
-- OpenAI
 - Pytest
 
 ## Estrutura do projeto
@@ -30,9 +27,9 @@ atv_integradora/
 |-- src/
 |   |-- app.py
 |   |-- chat_client.py
-|   |-- openai_client.py
+|   |-- external_client.py
 |   |-- chat_service.py
-|   `-- prompt_validator.py
+|   `-- message_validator.py
 |-- templates/
 |   `-- index.html
 |-- static/
@@ -48,19 +45,19 @@ atv_integradora/
 
 ## Como executar
 
-Instale as dependencias:
+Primeiro instale as dependencias:
 
 ```powershell
 pip install -r requirements.txt
 ```
 
-Inicie o projeto:
+Depois inicie o projeto:
 
 ```powershell
 python -m src.app
 ```
 
-Depois acesse no navegador:
+Acesse pelo navegador:
 
 ```text
 http://127.0.0.1:5000
@@ -69,7 +66,7 @@ http://127.0.0.1:5000
 ## Como usar
 
 1. Abra a pagina no navegador.
-2. Digite uma pergunta no campo de texto.
+2. Digite uma mensagem no campo de texto.
 3. Clique em "Enviar".
 4. A resposta sera exibida na tela.
 
@@ -81,14 +78,14 @@ Para rodar os testes:
 python -m pytest
 ```
 
-Os testes verificam se o envio do prompt e o recebimento da resposta estao funcionando corretamente.
+Os testes verificam as partes principais do projeto, como validacao, envio da mensagem e retorno da resposta.
 
 ## Organizacao do codigo
 
 - `src/app.py`: cria a aplicacao Flask e define as rotas.
-- `src/chat_service.py`: concentra a regra de negocio do envio do prompt.
-- `src/openai_client.py`: faz a comunicacao com a OpenAI.
-- `src/prompt_validator.py`: valida o texto digitado pelo usuario.
+- `src/chat_service.py`: organiza o envio da mensagem.
+- `src/external_client.py`: faz a comunicacao externa.
+- `src/message_validator.py`: valida o texto digitado pelo usuario.
 - `templates/index.html`: estrutura da pagina.
-- `static/app.js`: controla o envio do prompt e a exibicao da resposta.
+- `static/app.js`: controla o envio da mensagem e a exibicao da resposta.
 - `static/style.css`: define o visual da aplicacao.

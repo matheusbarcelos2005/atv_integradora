@@ -4,8 +4,8 @@ from dotenv import load_dotenv
 from flask import Flask, jsonify, render_template, request
 
 from .chat_service import ChatService
-from .openai_client import OpenAIClient
-from .prompt_validator import InvalidPromptError, PromptValidator
+from .external_client import ExternalClient
+from .message_validator import InvalidMessageError, MessageValidator
 
 
 def create_app(service: ChatService = None) -> Flask:
@@ -25,33 +25,27 @@ def create_app(service: ChatService = None) -> Flask:
     @app.post("/ask")
     def ask():
         payload = request.get_json(silent=True) or {}
-        prompt = payload.get("prompt", "")
+        message = payload.get("message", "")
         try:
-            response = service.ask(prompt)
-            return jsonify(
-                {
-                    "content": response.content,
-                    "model": response.model,
-                    "tokens_used": response.tokens_used,
-                }
-            )
-        except InvalidPromptError as error:
+            response = service.ask(message)
+            return jsonify({"content": response.content})
+        except InvalidMessageError as error:
             return jsonify({"error": str(error)}), 400
         except Exception:
-            return jsonify({"error": "Falha ao comunicar com a API."}), 502
+            return jsonify({"error": "Falha ao comunicar com o servico."}), 502
 
     return app
 
 
 def _build_default_service() -> ChatService:
     load_dotenv()
-    api_key = os.environ.get("OPENAI_API_KEY")
-    if not api_key:
+    service_key = os.environ.get("SERVICE_KEY")
+    if not service_key:
         raise RuntimeError(
-            "Variavel OPENAI_API_KEY nao definida no ambiente."
+            "Variavel SERVICE_KEY nao definida no ambiente."
         )
-    model = os.environ.get("OPENAI_MODEL", "gpt-3.5-turbo")
-    return ChatService(OpenAIClient(api_key, model), PromptValidator())
+    endpoint = os.environ.get("SERVICE_URL")
+    return ChatService(ExternalClient(service_key, endpoint), MessageValidator())
 
 
 if __name__ == "__main__":

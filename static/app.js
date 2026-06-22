@@ -1,19 +1,18 @@
-const promptInput = document.getElementById("prompt");
+const messageInput = document.getElementById("message");
 const sendButton = document.getElementById("send-btn");
 const responseSection = document.getElementById("response-section");
 const responseContent = document.getElementById("response-content");
-const responseMeta = document.getElementById("response-meta");
 const errorSection = document.getElementById("error-section");
 const errorMessage = document.getElementById("error-message");
 
 sendButton.addEventListener("click", handleSend);
 
 async function handleSend() {
-    const prompt = promptInput.value.trim();
+    const message = messageInput.value.trim();
     hideAll();
 
-    if (!prompt) {
-        showError("Digite um prompt antes de enviar.");
+    if (!message) {
+        showError("Digite uma mensagem antes de enviar.");
         return;
     }
 
@@ -22,7 +21,7 @@ async function handleSend() {
         const response = await fetch("/ask", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ prompt }),
+            body: JSON.stringify({ message }),
         });
         const data = await response.json();
 
@@ -33,7 +32,7 @@ async function handleSend() {
 
         showResponse(data);
     } catch (err) {
-        showError("Falha de rede ao enviar o prompt.");
+        showError("Falha de rede ao enviar a mensagem.");
     } finally {
         setLoading(false);
     }
@@ -45,7 +44,6 @@ function setLoading(loading) {
 }
 
 function showResponse(data) {
-    responseMeta.textContent = `Modelo: ${data.model} - Tokens: ${data.tokens_used}`;
     responseContent.textContent = data.content;
     responseSection.classList.remove("hidden");
 }
