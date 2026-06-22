@@ -5,55 +5,47 @@ const responseContent = document.getElementById("response-content");
 const errorSection = document.getElementById("error-section");
 const errorMessage = document.getElementById("error-message");
 
-sendButton.addEventListener("click", handleSend);
-
-async function handleSend() {
+sendButton.addEventListener("click", async () => {
     const message = messageInput.value.trim();
-    hideAll();
+    
+    // Esconde as seções de resposta e de erro antes de iniciar
+    responseSection.classList.add("hidden");
+    errorSection.classList.add("hidden");
 
     if (!message) {
-        showError("Digite uma mensagem antes de enviar.");
+        errorMessage.textContent = "Por favor, digite uma mensagem antes de enviar.";
+        errorSection.classList.remove("hidden");
         return;
     }
 
-    setLoading(true);
+    // Desabilita o botão enquanto envia
+    sendButton.disabled = true;
+    sendButton.textContent = "Enviando...";
+
     try {
         const response = await fetch("/ask", {
             method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ message }),
+            headers: { 
+                "Content-Type": "application/json" 
+            },
+            body: JSON.stringify({ message: message })
         });
+        
         const data = await response.json();
 
-        if (!response.ok) {
-            showError(data.error || "Erro desconhecido.");
-            return;
+        if (response.ok) {
+            responseContent.textContent = data.content;
+            responseSection.classList.remove("hidden");
+        } else {
+            errorMessage.textContent = data.error || "Ocorreu um erro desconhecido.";
+            errorSection.classList.remove("hidden");
         }
-
-        showResponse(data);
     } catch (err) {
-        showError("Falha de rede ao enviar a mensagem.");
+        errorMessage.textContent = "Falha na conexão de rede ao enviar a mensagem.";
+        errorSection.classList.remove("hidden");
     } finally {
-        setLoading(false);
+        // Reabilita o botão
+        sendButton.disabled = false;
+        sendButton.textContent = "Enviar";
     }
-}
-
-function setLoading(loading) {
-    sendButton.disabled = loading;
-    sendButton.textContent = loading ? "Enviando..." : "Enviar";
-}
-
-function showResponse(data) {
-    responseContent.textContent = data.content;
-    responseSection.classList.remove("hidden");
-}
-
-function showError(message) {
-    errorMessage.textContent = message;
-    errorSection.classList.remove("hidden");
-}
-
-function hideAll() {
-    responseSection.classList.add("hidden");
-    errorSection.classList.add("hidden");
-}
+});
