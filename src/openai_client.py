@@ -1,9 +1,9 @@
 from openai import OpenAI
 
-from .ai_client import AIClient, ChatResponse
+from .chat_client import ChatClient, ChatResponse
 
 
-class OpenAIClient(AIClient):
+class OpenAIClient(ChatClient):
     def __init__(self, api_key: str, model: str = "gpt-3.5-turbo"):
         if not api_key:
             raise ValueError("API key e obrigatoria.")

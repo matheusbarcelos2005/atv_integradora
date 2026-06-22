@@ -1,9 +1,9 @@
-from .ai_client import AIClient, ChatResponse
+from .chat_client import ChatClient, ChatResponse
 from .prompt_validator import PromptValidator
 
 
 class ChatService:
-    def __init__(self, client: AIClient, validator: PromptValidator):
+    def __init__(self, client: ChatClient, validator: PromptValidator):
         self._client = client
         self._validator = validator
 

@@ -1,11 +1,11 @@
 import pytest
 
-from src.ai_client import AIClient, ChatResponse
+from src.chat_client import ChatClient, ChatResponse
 from src.chat_service import ChatService
 from src.prompt_validator import InvalidPromptError, PromptValidator
 
 
-class RecordingAIClient(AIClient):
+class RecordingChatClient(ChatClient):
     def __init__(self):
         self.received_prompts = []
 
@@ -16,7 +16,7 @@ class RecordingAIClient(AIClient):
 
 @pytest.fixture
 def recording_client():
-    return RecordingAIClient()
+    return RecordingChatClient()
 
 
 @pytest.fixture

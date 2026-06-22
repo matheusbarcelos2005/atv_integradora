@@ -9,7 +9,7 @@ class ChatResponse:
     tokens_used: int
 
 
-class AIClient(ABC):
+class ChatClient(ABC):
     @abstractmethod
     def send_prompt(self, prompt: str) -> ChatResponse:
         raise NotImplementedError

@@ -1,11 +1,11 @@
 import pytest
 
-from src.ai_client import AIClient, ChatResponse
+from src.chat_client import ChatClient, ChatResponse
 from src.chat_service import ChatService
 from src.prompt_validator import PromptValidator
 
 
-class StubAIClient(AIClient):
+class StubChatClient(ChatClient):
     def __init__(self, response: ChatResponse):
         self._response = response
 
@@ -14,7 +14,7 @@ class StubAIClient(AIClient):
 
 
 def build_service(response: ChatResponse) -> ChatService:
-    return ChatService(StubAIClient(response), PromptValidator())
+    return ChatService(StubChatClient(response), PromptValidator())
 
 
 class TestChatResponseStructure:

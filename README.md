@@ -18,7 +18,7 @@ A aplicacao permite digitar uma pergunta em uma pagina web, enviar essa pergunta
 atv_integradora/
 |-- src/
 |   |-- app.py
-|   |-- ai_client.py
+|   |-- chat_client.py
 |   |-- openai_client.py
 |   |-- chat_service.py
 |   `-- prompt_validator.py
