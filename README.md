@@ -1,6 +1,4 @@
-# Integrador ChatGPT
-
-Projeto simples desenvolvido para a Atividade Integradora da disciplina de Desenvolvimento de Software.
+# Atividade Integradora
 
 A aplicacao permite digitar uma pergunta em uma pagina web, enviar essa pergunta para a API da OpenAI e mostrar a resposta na tela.
 
@@ -17,22 +15,22 @@ A aplicacao permite digitar uma pergunta em uma pagina web, enviar essa pergunta
 ```text
 atv_integradora/
 |-- src/
-|   |-- app.py
-|   |-- ai_client.py
-|   |-- openai_client.py
-|   |-- chat_service.py
-|   `-- prompt_validator.py
+|   -- app.py
+|   -- ai_client.py
+|   -- openai_client.py
+|   -- chat_service.py
+|   -- prompt_validator.py
 |-- templates/
-|   `-- index.html
+|   -- index.html
 |-- static/
-|   |-- style.css
-|   `-- app.js
+|   -- style.css
+|   -- app.js
 |-- tests/
-|   |-- test_send.py
-|   `-- test_receive.py
+|   -- test_send.py
+|   -- test_receive.py
 |-- requirements.txt
 |-- .env.example
-`-- README.md
+ -- README.md
 ```
 
 ## Como executar
@@ -78,7 +76,3 @@ python -m pytest
 ```
 
 Os testes verificam se o envio do prompt e o recebimento da resposta estao funcionando corretamente.
-
-## Observacao
-
-Para usar a aplicacao, e necessario ter uma chave valida da API da OpenAI no arquivo `.env`.
