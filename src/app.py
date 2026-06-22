@@ -48,7 +48,7 @@ def _build_default_service() -> ChatService:
     api_key = os.environ.get("OPENAI_API_KEY")
     if not api_key:
         raise RuntimeError(
-            "Variavel OPENAI_API_KEY nao definida. Copie .env.example para .env."
+            "Variavel OPENAI_API_KEY nao definida no ambiente."
         )
     model = os.environ.get("OPENAI_MODEL", "gpt-3.5-turbo")
     return ChatService(OpenAIClient(api_key, model), PromptValidator())

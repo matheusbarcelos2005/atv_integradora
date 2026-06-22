@@ -1,13 +1,26 @@
 # Atividade Integradora
 
-A aplicacao permite digitar uma pergunta em uma pagina web, enviar essa pergunta para a API da OpenAI e mostrar a resposta na tela.
+Aplicacao web desenvolvida para a Atividade Integradora. O sistema permite digitar uma pergunta em uma pagina web, enviar o prompt para o ChatGPT e exibir a resposta retornada na tela.
+
+## Objetivo
+
+Demonstrar a integracao entre uma interface web, uma aplicacao Flask e um servico externo de inteligencia artificial, mantendo separacao entre validacao, regra de negocio e comunicacao com o cliente da OpenAI.
+
+## Funcionalidades
+
+- Envio de prompts pela interface web.
+- Validacao de prompts vazios ou muito longos.
+- Exibicao da resposta gerada pelo modelo.
+- Exibicao do modelo utilizado e da quantidade de tokens.
+- Tratamento de erros de validacao e falhas de comunicacao.
+- Testes automatizados para envio, validacao e recebimento de respostas.
 
 ## Tecnologias usadas
 
 - Python
 - Flask
 - HTML, CSS e JavaScript
-- API da OpenAI
+- OpenAI
 - Pytest
 
 ## Estrutura do projeto
@@ -15,30 +28,22 @@ A aplicacao permite digitar uma pergunta em uma pagina web, enviar essa pergunta
 ```text
 atv_integradora/
 |-- src/
-<<<<<<< HEAD
 |   |-- app.py
 |   |-- chat_client.py
 |   |-- openai_client.py
 |   |-- chat_service.py
 |   `-- prompt_validator.py
-=======
-|   -- app.py
-|   -- ai_client.py
-|   -- openai_client.py
-|   -- chat_service.py
-|   -- prompt_validator.py
->>>>>>> e8e074a892f176bf3c94483b03d6f175f67e2ec9
 |-- templates/
-|   -- index.html
+|   `-- index.html
 |-- static/
-|   -- style.css
-|   -- app.js
+|   |-- style.css
+|   `-- app.js
 |-- tests/
-|   -- test_send.py
-|   -- test_receive.py
+|   |-- test_send.py
+|   `-- test_receive.py
 |-- requirements.txt
 |-- .env.example
- -- README.md
+`-- README.md
 ```
 
 ## Como executar
@@ -47,13 +52,6 @@ Instale as dependencias:
 
 ```powershell
 pip install -r requirements.txt
-```
-
-Crie o arquivo `.env` com base no `.env.example`:
-
-```env
-OPENAI_API_KEY=sua_chave_aqui
-OPENAI_MODEL=gpt-3.5-turbo
 ```
 
 Inicie o projeto:
@@ -84,10 +82,13 @@ python -m pytest
 ```
 
 Os testes verificam se o envio do prompt e o recebimento da resposta estao funcionando corretamente.
-<<<<<<< HEAD
 
-## Observacao
+## Organizacao do codigo
 
-Para usar a aplicacao, e necessario ter uma chave valida da API da OpenAI no arquivo `.env`.
-=======
->>>>>>> e8e074a892f176bf3c94483b03d6f175f67e2ec9
+- `src/app.py`: cria a aplicacao Flask e define as rotas.
+- `src/chat_service.py`: concentra a regra de negocio do envio do prompt.
+- `src/openai_client.py`: faz a comunicacao com a OpenAI.
+- `src/prompt_validator.py`: valida o texto digitado pelo usuario.
+- `templates/index.html`: estrutura da pagina.
+- `static/app.js`: controla o envio do prompt e a exibicao da resposta.
+- `static/style.css`: define o visual da aplicacao.
